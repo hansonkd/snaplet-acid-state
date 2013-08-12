@@ -68,6 +68,17 @@ acidInit' :: A.IsAcidic st
           -> SnapletInit b (Acid st)
 acidInit' location initial = makeSnaplet "acid-state" description Nothing $
     initWorker (A.openLocalStateFrom location initial)
+    
+    
+------------------------------------------------------------------------------
+-- | Initializer allowing you to specify the AcidState to use
+-- | The AcidState will be destroyed on unload like usual.
+acidInit'' :: A.IsAcidic st
+          => (AcidState st)
+          -- ^ AcidState tate to be used if 
+          -> SnapletInit b (Acid st)
+acidInit'' initial = makeSnaplet "acid-state" description Nothing $
+    initWorker $ return initial
 
 
 ------------------------------------------------------------------------------
